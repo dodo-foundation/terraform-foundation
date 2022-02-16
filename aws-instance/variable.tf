@@ -5,10 +5,10 @@ variable "SUBNET_ID" {
   default = "subnet-0a3f2b582374a501d"
 }
 
-variable "PROJECT" {
-  default = "dodo"
-}
+variable "PROJECT" {}
 
 variable "AMI" {
   default = "ami-04505e74c0741db8d"
 }
+
+variable "ENVIRONMENT" {}

@@ -34,10 +34,10 @@ jobs:
         run: terraform fmt
 
       - name: PLAN
-        run: terraform  plan
+        run: terraform  plan -var-file=config-prod.tfvars
 
       - name: APPLY
-        run: terraform  apply -auto-approve
+        run: terraform  apply -auto-approve -var-file=config-prod.tfvars
 
-      - name: terraform destroy
-        run: terraform  destroy -auto-approve
+      # - name: DESTROY
+      #   run: terraform  destroy -auto-approve
