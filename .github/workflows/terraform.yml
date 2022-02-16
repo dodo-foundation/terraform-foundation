@@ -14,16 +14,19 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v1
+        
       - name: setup terraform
         uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: 0.14.6
+
       - name: configure aws credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.ACCESS_KEY }}
           aws-secret-access-key: ${{ secrets.SECRET_KEY }}
           aws-region: us-east-1
+
       - name: INIT
         run: terraform init
 
@@ -39,5 +42,5 @@ jobs:
       - name: APPLY
         run: terraform  apply -auto-approve -var-file=config-prod.tfvars
 
-      # - name: DESTROY
-      #   run: terraform  destroy -auto-approve
+      - name: DESTROY
+        run: terraform  destroy -auto-approve -var-file=config-prod.tfvars
