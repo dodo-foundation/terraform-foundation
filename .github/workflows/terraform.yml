@@ -1,0 +1,38 @@
+name: provision the eks resources
+on: [push]
+jobs:
+  terraform:
+    name: terraform
+    strategy:
+      matrix:
+        folder: [aws-instance]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ matrix.folder }}
+    steps:
+      - name: checkout
+        uses: actions/checkout@v1
+      - name: setup terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 0.14.6
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.SECRET_KEY }}
+          aws-region: us-east-1
+      - name: terraform initial
+        run: terraform init
+      - name: validation
+        run: terraform validation
+      - name: code format
+        run: terraform fmt
+      - name: terraform plan
+        run: terraform  plan
+      - name: terraform apply
+        run: terraform  apply -auto-approve
+      # - name: terraform destroy
+      #   run: terraform  destroy -var-file=config.tfvars -auto-approve
