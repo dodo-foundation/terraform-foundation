@@ -24,15 +24,20 @@ jobs:
           aws-access-key-id: ${{ secrets.ACCESS_KEY }}
           aws-secret-access-key: ${{ secrets.SECRET_KEY }}
           aws-region: us-east-1
-      - name: terraform initial
+      - name: INIT
         run: terraform init
-      - name: validation
+
+      - name: VALIDATION
         run: terraform validation
-      - name: code format
+
+      - name: FORMAT
         run: terraform fmt
-      - name: terraform plan
+
+      - name: PLAN
         run: terraform  plan
-      - name: terraform apply
+
+      - name: APPLY
         run: terraform  apply -auto-approve
+
       # - name: terraform destroy
       #   run: terraform  destroy -var-file=config.tfvars -auto-approve
