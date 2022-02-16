@@ -39,5 +39,5 @@ jobs:
       - name: APPLY
         run: terraform  apply -auto-approve
 
-      # - name: terraform destroy
-      #   run: terraform  destroy -var-file=config.tfvars -auto-approve
+      - name: terraform destroy
+        run: terraform  destroy -auto-approve
