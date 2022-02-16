@@ -28,7 +28,7 @@ jobs:
         run: terraform init
 
       - name: VALIDATION
-        run: terraform validation
+        run: terraform validate
 
       - name: FORMAT
         run: terraform fmt
