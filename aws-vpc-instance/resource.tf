@@ -12,3 +12,11 @@ resource "aws_subnet" "as" {
     Name = "${var.PROJECT}-${var.ENVIRONMENT}-subnet"
   }
 }
+
+resource "aws_internet_gateway" "aig" {
+  vpc_id = aws_vpc.av.id
+
+  tags = {
+    Name = "${var.PROJECT}-${var.ENVIRONMENT}-aig"
+  }
+}
