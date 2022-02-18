@@ -20,3 +20,17 @@ resource "aws_internet_gateway" "aig" {
     Name = "${var.PROJECT}-${var.ENVIRONMENT}-aig"
   }
 }
+
+
+resource "aws_route_table" "art" {
+  vpc_id = aws_vpc.av.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.aig.id
+  }
+
+  tags = {
+    Name = "${var.PROJECT}-${var.ENVIRONMENT}-art"
+  }
+}
