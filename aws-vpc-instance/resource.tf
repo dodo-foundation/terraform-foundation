@@ -34,3 +34,8 @@ resource "aws_route_table" "art" {
     Name = "${var.PROJECT}-${var.ENVIRONMENT}-art"
   }
 }
+
+resource "aws_route_table_association" "arta" {
+  subnet_id      = aws_subnet.as.id
+  route_table_id = aws_route_table.art.id
+}
