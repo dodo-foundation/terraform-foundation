@@ -73,7 +73,7 @@ resource "aws_security_group" "asg" {
 }
 
 
-resource "aws_instance" "web" {
+resource "aws_instance" "ai" {
   ami                    = var.AMI
   instance_type          = "t2.micro"
   key_name               = aws_key_pair.akp.key_name
