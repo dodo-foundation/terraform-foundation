@@ -1,13 +1,14 @@
 resource "aws_vpc" "av" {
-  cidr_block = "10.0.0.0/16"
+  cidr_block = var.VPC_CIDR_BLOCK
   tags = {
     Name = "${var.PROJECT}-${var.ENVIRONMENT}-vpc"
   }
 }
 
 resource "aws_subnet" "as" {
-  vpc_id     = aws_vpc.av.id
-  cidr_block = "10.0.1.0/24"
+  vpc_id                  = aws_vpc.av.id
+  cidr_block              = var.SUBNET_CIDR_BLOCK
+  map_public_ip_on_launch = true
   tags = {
     Name = "${var.PROJECT}-${var.ENVIRONMENT}-subnet"
   }
