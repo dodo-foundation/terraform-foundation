@@ -44,6 +44,6 @@ jobs:
 
       - name: SHOW THE DETAILS
         run: terraform show
-        
-#      - name: DESTROY
-#        run: terraform  destroy -auto-approve -var-file=config-prod.tfvars
+
+     - name: DESTROY
+       run: terraform  destroy -auto-approve -var-file=config-prod.tfvars
