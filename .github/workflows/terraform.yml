@@ -26,31 +26,8 @@ jobs:
           aws-region: us-east-1
       - name: terraform initiation
         run: terraform init
-
-  validate:
-    name: validate
-    strategy:
-      matrix:
-        folder: [aws-vpc-instance]
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash
-        working-directory: ${{ matrix.folder }}
-    needs:
-    - init
-    steps:    
-      - name: setup terraform
-        uses: hashicorp/setup-terraform@v1
+      - uses: actions/upload-artifact@v2
         with:
-          terraform_version: 0.14.6
-      - name: configure aws credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.ACCESS_KEY }}
-          aws-secret-access-key: ${{ secrets.SECRET_KEY }}
-          aws-region: us-east-1
-      - name: terraform initiation
-        run: terraform init
-      - name: terraform plan
-        run: terraform plan -var-file=config-prod.tfvars
+          name: terraform-artifact
+          path: .
+          
