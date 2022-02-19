@@ -1,4 +1,4 @@
-name: terraform initiation
+name: terraform
 on: [push]
 jobs:
   init:
