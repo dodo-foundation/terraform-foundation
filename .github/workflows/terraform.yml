@@ -32,6 +32,8 @@ jobs:
           path: .
   validation:
     name: validate
+    needs:
+    - init
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v2
