@@ -39,5 +39,7 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: terraform-artifact
-      - name: upload-artifact
+      - name: upload-artifact-verify
         run: ls -la
+      - name: terraform
+        run: terraform --version
