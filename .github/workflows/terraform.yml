@@ -30,4 +30,12 @@ jobs:
         with:
           name: terraform-artifact
           path: .
-          
+  validation:
+    name: validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: terraform-artifact
+      - name: upload-artifact
+        run: ls -la
