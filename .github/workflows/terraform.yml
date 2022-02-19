@@ -43,3 +43,5 @@ jobs:
         run: ls -la
       - name: terraform
         run: terraform --version
+      - name: terraform 
+        run: terraform plan -var-file=config-prod.tfvars
