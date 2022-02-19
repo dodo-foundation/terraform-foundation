@@ -1,8 +1,8 @@
-name: terraform
+name: provision the eks resources
 on: [push]
 jobs:
-  init:
-    name: init
+  terraform:
+    name: terraform
     strategy:
       matrix:
         folder: [aws-vpc-instance]
@@ -13,35 +13,39 @@ jobs:
         working-directory: ${{ matrix.folder }}
     steps:
       - name: checkout
-        uses: actions/checkout@v1      
+        uses: actions/checkout@v1
+        
       - name: setup terraform
         uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: 0.14.6
+
       - name: configure aws credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.ACCESS_KEY }}
           aws-secret-access-key: ${{ secrets.SECRET_KEY }}
           aws-region: us-east-1
-      - name: terraform initiation
+
+      - name: INIT
         run: terraform init
-      - uses: actions/upload-artifact@v2
-        with:
-          name: terraform-artifact
-          path: .
-  validation:
-    name: validate
-    needs:
-    - init
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/download-artifact@v2
-        with:
-          name: terraform-artifact
-      - name: upload-artifact-verify
-        run: ls -la
-      - name: terraform
-        run: terraform --version
-      - name: terraform 
-        run: terraform plan -var-file=config-prod.tfvars
+
+      - name: VALIDATION
+        run: terraform validate
+
+      - name: FORMAT
+        run: terraform fmt
+
+      - name: PLAN
+        run: terraform  plan -var-file=config-prod.tfvars
+
+      # - name: APPLY
+      #   run: terraform  apply -auto-approve -var-file=config-prod.tfvars
+
+      # - name: SHOW THE DETAILS
+      #   run: terraform show
+
+      # - name: DESTROY
+      #   run: terraform  destroy -auto-approve -var-file=config-prod.tfvars
+
+
