@@ -38,7 +38,7 @@ jobs:
         shell: bash
         working-directory: ${{ matrix.folder }}
     runs-on: ubuntu-latest
-    need:
+    needs:
     - init
     steps:    
       - name: setup terraform
