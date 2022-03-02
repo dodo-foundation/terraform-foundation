@@ -53,13 +53,19 @@ resource "aws_security_group" "asg" {
   vpc_id      = aws_vpc.av.id
 
   ingress {
-    description = "TLS from VPC"
+    description = "TLS from SSH"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-
+  ingress {
+    description = "TLS from WEBSERVER"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
   egress {
     from_port   = 0
     to_port     = 0
@@ -72,6 +78,10 @@ resource "aws_security_group" "asg" {
   }
 }
 
+data "template_file" "tf" {
+  template = file("script/main.sh")
+}
+
 
 resource "aws_instance" "ai" {
   ami                    = var.AMI
@@ -79,6 +89,7 @@ resource "aws_instance" "ai" {
   key_name               = aws_key_pair.akp.key_name
   vpc_security_group_ids = [aws_security_group.asg.id]
   subnet_id              = aws_subnet.as.id
+  user_data              = data.template_file.tf.rendered
   tags = {
     Name = "${var.PROJECT}-${var.ENVIRONMENT}-instance"
   }

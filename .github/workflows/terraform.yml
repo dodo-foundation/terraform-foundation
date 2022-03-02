@@ -1,4 +1,4 @@
-name: provision the eks resources
+name: provision the terraform resources
 on: [push]
 jobs:
   terraform:
@@ -39,11 +39,11 @@ jobs:
       - name: PLAN
         run: terraform  plan -var-file=config-prod.tfvars
 
-      # - name: APPLY
-      #   run: terraform  apply -auto-approve -var-file=config-prod.tfvars
+      - name: APPLY
+        run: terraform  apply -auto-approve -var-file=config-prod.tfvars
 
-      # - name: SHOW THE DETAILS
-      #   run: terraform show
+      - name: SHOW THE DETAILS
+        run: terraform show
 
       # - name: DESTROY
       #   run: terraform  destroy -auto-approve -var-file=config-prod.tfvars
