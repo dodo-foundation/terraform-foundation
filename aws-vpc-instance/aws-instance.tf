@@ -5,7 +5,7 @@ data "template_file" "tf" {
 
 resource "aws_instance" "ai" {
   ami                    = var.AMI
-  instance_type          = "t2.micro"
+  instance_type          = local.INSTANCE_TYPE
   key_name               = aws_key_pair.akp.key_name
   vpc_security_group_ids = [aws_security_group.asg.id]
   subnet_id              = aws_subnet.as.id
