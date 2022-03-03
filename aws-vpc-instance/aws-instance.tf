@@ -11,7 +11,7 @@ resource "aws_instance" "ai" {
   subnet_id              = aws_subnet.as.id
   user_data              = data.template_file.tf.rendered
   tags = {
-    Name = "${var.PROJECT}-${local.INSTANCE_ENV}-instance"
+    Name = "${var.PROJECT}-${local.ADD_INSTANCE_ENV}-instance"
   }
   depends_on = [
     aws_key_pair.akp,
