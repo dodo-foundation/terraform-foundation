@@ -13,4 +13,8 @@ resource "aws_instance" "ai" {
   tags = {
     Name = "${var.PROJECT}-${var.ENVIRONMENT}-instance"
   }
+  depends_on = [
+    aws_key_pair.akp,
+    aws_security_group.asg
+  ]
 }
