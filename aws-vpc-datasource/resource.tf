@@ -42,3 +42,9 @@ resource "aws_iam_policy" "policy" {
     ]
   })
 }
+
+resource "aws_iam_policy_attachment" "aipa" {
+  name       = "${var.PROJECT}-${var.ENVIRONMENT}-lambda-policy"
+  roles      = [aws_iam_role.air_lambda.name]
+  policy_arn = aws_iam_policy.policy.arn
+}
