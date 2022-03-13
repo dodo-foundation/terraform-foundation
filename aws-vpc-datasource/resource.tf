@@ -53,4 +53,5 @@ resource "aws_lambda_function" "test_lambda" {
   function_name = "${var.PROJECT}-${var.ENVIRONMENT}-lambda"
   role          = aws_iam_role.air_lambda.arn
   runtime       = "nodejs12.x"
+  handler       = "index.test"
 }
