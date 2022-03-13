@@ -48,3 +48,9 @@ resource "aws_iam_policy_attachment" "aipa" {
   roles      = [aws_iam_role.air_lambda.name]
   policy_arn = aws_iam_policy.policy.arn
 }
+
+resource "aws_lambda_function" "test_lambda" {
+  function_name = "${var.PROJECT}-${var.ENVIRONMENT}-lambda"
+  role          = aws_iam_role.air_lambda.arn
+  runtime       = "nodejs12.x"
+}
