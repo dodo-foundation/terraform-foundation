@@ -30,18 +30,15 @@ EOF
 resource "aws_iam_policy" "policy" {
   name        = "${var.PROJECT}-${var.ENVIRONMENT}-lambda-policy"
   description = "Lambda will consume this policy"
-
-  policy = <<EOF
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "adminPrivilegesGrantsPolicy",
-            "Effect": "Allow",
-            "Action": "*",
-            "Resource": "*"
-        }
+  policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Sid" : "adminPrivilegesGrantsPolicy",
+        "Effect" : "Allow",
+        "Action" : "*",
+        "Resource" : "*"
+      }
     ]
-}
-EOF
+  })
 }
