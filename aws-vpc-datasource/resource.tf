@@ -7,7 +7,7 @@ resource "aws_subnet" "main" {
 }
 
 resource "aws_iam_role" "air_lambda" {
-  name = "${var.PROJECT}-${var.ENVIRONMENT}-lambda"
+  name               = "${var.PROJECT}-${var.ENVIRONMENT}-lambda"
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -25,3 +25,23 @@ resource "aws_iam_role" "air_lambda" {
 EOF
 }
 
+
+
+resource "aws_iam_policy" "policy" {
+  name        = "${var.PROJECT}-${var.ENVIRONMENT}-lambda-policy"
+  description = "Lambda will consume this policy"
+
+  policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "adminPrivilegesGrantsPolicy",
+            "Effect": "Allow",
+            "Action": "*",
+            "Resource": "*"
+        }
+    ]
+}
+EOF
+}
