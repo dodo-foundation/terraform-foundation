@@ -50,8 +50,9 @@ resource "aws_iam_policy_attachment" "aipa" {
 }
 
 resource "aws_lambda_function" "test_lambda" {
-  function_name = "${var.PROJECT}-${var.ENVIRONMENT}-lambda"
-  role          = aws_iam_role.air_lambda.arn
-  runtime       = "nodejs12.x"
-  handler       = "index.test"
+    function_name                  = "${var.PROJECT}-${var.ENVIRONMENT}-lambda"
+    handler                        = "index.handler"
+    package_type                   = "Zip"
+    role                           = "aws_iam_role.air_lambda.arn"
+    runtime                        = "nodejs14.x"
 }
