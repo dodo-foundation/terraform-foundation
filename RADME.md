@@ -32,6 +32,3 @@
     }  
 
 #In this file we mention the variable and store value of variable in default 
-
-
-#backend.tf
